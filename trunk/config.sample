@@ -1,6 +1,14 @@
 <?php
+/************************************************
+*  Fill this in and save it as config.php
+* 
+* 1. You'll need a database set up with a user.
+* 2. Pick a title for your installation.
+* 3. Set your timezone if not in UK.
+************************************************/
+
 // set config
-$db_user = 'root';
+$db_user = '';
 $db_password = '';
 $database = '';
 
