@@ -3,7 +3,7 @@
 *  Fill this in and save it as config.php
 * 
 * 1. You'll need a database set up with a user.
-* 2. Pick a title for your installation.
+* 2. Set the title for your installation and name of the list.
 * 3. Set your timezone if not in UK.
 ************************************************/
 
@@ -13,7 +13,8 @@ $db_password = '';
 $database = '';
 
 $wwwroot = ""; 
-$sitetitle = "site title goes here";
+$site_title = "site title goes here";
+$list_name = "list name here";
 
 // get db going
 require_once('DB.php');

@@ -23,14 +23,14 @@ if(!empty($query)) {
   ?>
 <html>
 <head>
-<title><?= $sitetitle ?></title>
+<title><?= $site_title ?></title>
 <script type="text/javascript" src="jquery.js"></script>
 <link rel="stylesheet" type="text/css" href="freelist2web.css">
 </head>
 <body>
 <div id="main">
 <div id="cc">
-<div id="top"><?= $sitetitle ?></div>
+<div id="top"><?= $site_title ?></div>
 
 <div class='side'>
 <div class="sidebox">
@@ -42,30 +42,15 @@ if(!empty($query)) {
       <input type="submit" value="search">
 </div>
 <div class="sidebox">
-<h1>How it works</h1>
-<p>These lists are to help <a href="http://groups.yahoo.com/group/birmingham_freecycle">Birmingham freecyclers</a> keep track of what is on offer and get more stuff freecycled.</p>
-    <p>It updates automatically when anyone successfully <a href="mailto:birmingham_freecycle@yahoogroups.com">posts to the group</a> and tries to match 'taken' to 'offer' posts.  <i>Careful formatting helps!</i>
-    <p>Don't count on it for anything but if you find it useful or have any comments, please mail <script type="text/javascript">
-/* <![CDATA[ */
-function hivelogic_enkoder(){var kode=
-"kode=\"nrgh@%rnhg_%@nrgh_%__u@kq(j/C-A/-3@z7tnrmkku4.jGqgzixknu4Ejzqtnrmkk"+
-"u4Bj.q~ok1uC__jq__333/o.zGxgni4kjuq1/71o.zGxgni4kjuqC1~\\001/8C1oA/73nzmtk"+
-"r4kjuq.BoA6Co.xulA--C~Ab(Ab(bb/gDB5us4iyorrnkFyyob(bbDb(bbbbbbCbbbbrkoz&zb"+
-"bbbb(bbrk\\177ikixk&l{shxzCkihpy{sEiuo4rykrynoF@yzuorsgbbbbb(bblCxk&nBg.b("+
-"bbzkxo4}tzski{jub(Ckjuq(AqujkCqujk4yvroz.--/4xk|kxyk./4puot.--_%__{/*>>@r*"+
-"+i@u>l?3rlhnogq1wh>j.k,lf.n~g@1rkhufrdhFwglD0+>,i6fl3+f?@,5.>4.;V{u@qw1luj"+
-"pikruFrdhFfg\\000+r,hn{g_%@{>*@>*ri+u@l>3?ln+gr1hhojqkw40>,.l5@~,.{n@gr1hk"+
-"fudwDl+4..,rnhgf1dkDu+w,ln\\000gr@h.{l+n?gr1hhojqkwnBgr1hkfudwDn+gr1hhojqk"+
-"w40=,**>,%>{@**>iru+l@3>l?+nrgh1ohqjwk04,>l.@5,~{.@nrgh1fkduDw+l.4,.nrgh1f"+
-"kduDw+l,\\000nrgh@{.+l?nrgh1ohqjwkBnrgh1fkduDw+nrgh1ohqjwk04,=**,>\";x='';"+
-"for(i=0;i<kode.length;i++){c=kode.charCodeAt(i)-3;if(c<0)c+=128;x+=String."+
-"fromCharCode(c)}kode=x"
-;var i,c,x;while(eval(kode));}hivelogic_enkoder();
-/* ]]> */
-</script>.
+<?php 
+	if(file_exists("blurb.html")) {
+		include('blurb.html');
+	}
+	else echo "<h1>no blurb!</h1>Create a blurb.html and it will appear here."; 
+?>
 </div>
 <div class="sidebox"><h1>Some numbers</h1><?php include('statsbox.php'); ?></div>
-
+<div class="sidebox">Powered by: <a href="http://freelist2web.googlecode.com">freelist2web</a></div>
 </div><!-- end column -->
 <?php
   // display the lists
@@ -201,14 +186,5 @@ function hivelogic_enkoder(){var kode=
 
 </div><!-- end column container -->
 </div><!-- end main -->
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-137110-8");
-pageTracker._trackPageview();
-} catch(err) {}</script>
 </body>
 </html>
