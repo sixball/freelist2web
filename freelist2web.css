@@ -1,0 +1,133 @@
+ body {
+  background-color: #666666;
+ }
+ 
+ h1 {
+  margin: 0px;
+  color: #888888;
+  font-family: Helvetica;
+  font-size: 13pt;
+ }
+ 
+ #main {
+  width: 810px;
+  margin: auto;
+ }
+
+#cc {
+ background-color: #ffffff;
+  padding: 5px;
+  -moz-border-radius: 10px;
+	float:left;
+}
+ 
+ #top {
+  background-color: green;
+  font-size: 30pt;
+  color: #FFFFFF;
+  -moz-border-radius: 8px;
+  padding: 5px;
+ }
+ 
+ div.itemlist {
+  width: 560px;
+  float: left;
+ }
+ 
+ div.side {
+  width: 200px;
+  float:right;
+  margin: 5px;
+ }
+ 
+ div.sidebox {
+  border: 1px solid green;
+  margin: 15px 5px;
+  padding: 10px;
+ }
+ 
+ form {
+  margin: 0;
+ }
+ 
+ ul {
+  padding-left: 20px;
+ }
+ 
+ div.column {
+    width: 400px; 
+    float:left;
+    background-color: #ffffff;
+  }
+  .column h2 {margin: 0px;}
+  div.item {
+    background-color: #E8E8E8; 
+    margin: 2px; 
+    padding: 4px; 
+    font-family: Arial;
+    -moz-border-radius: 4px;
+    width: 500px;
+  }
+  div.item img {cursor:point}
+  .taken {display: block}
+  div.item div.time {font-size: small; color: #666666;float:right}
+  div.item div.postcode {font-size: small; color: #000000; float:right; font-family: arial; font-weight:bold; margin-right: 5px;}
+  div.item div.detail {display: none;  font-family: Times New Roman;}
+  div.followup {background-color: #e1e1e1; padding: 4px;}
+  a {text-decoration: none}
+  a:hover {text-decoration: underline}
+  div.original {
+    float: right;
+    font-size:small;
+  }
+  div.box {
+    float: left;
+    text-align: center;
+    width: 210px;
+    margin: 2px;
+  }
+  
+  div.box h1 {
+    margin:0px;
+    font-family: arial;
+    font-size: 1.2em;
+  }
+  
+  div.box.thin {
+    width: 100px;
+  }
+
+#linkbar {
+  font-size:  2em;
+  font-family: arial;
+  -moz-border-radius: 5px;
+  background-color: #eeaa88;
+  padding: 0px 4px;
+}
+
+#linkbar a { color: #ffffff; }
+
+table {
+  float: left;
+}
+
+.offered {
+  background-color: #99ff99;
+}
+
+.taken {
+  background-color: #ff9999;
+  display:none;
+}
+
+.wanted {
+  background-color: #9999ff;
+}
+
+.unknown {
+  background-color: #ffff99;
+}
+
+#showtaken {
+  float: right;
+}
