@@ -170,7 +170,7 @@ if(!empty($query)) {
 	}	
     }
     else { // no search
-      echo "What's available on Birmingham Freecycle, right now?";
+      echo "What's available on $list_name, right now?";
       $filter = "type='offered'";
       echo "<div id='showtaken'><input id='showTaken' type='checkbox' onClick='if(this.checked) $(\".taken\").show(\"normal\"); else $(\".taken\").hide(\"normal\")'> <small>show taken items</small></div>";
       $posts = getPosts($filter);
