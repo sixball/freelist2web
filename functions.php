@@ -71,7 +71,7 @@ function protectEmail($address) {
 }
 
 function extractFromPost($p) {
-  global $db;
+  global $db, $postcode_pattern;
   //error_log(print_r($p, true)." \n", 3, 'p.txt'); 
   $p['headline'] = preg_replace("/\[birmingham_freecycle\] /", "", $p['subject']);
   preg_match("/\<(.+@.+)\>/", $p['from'], $match);
@@ -87,7 +87,7 @@ function extractFromPost($p) {
   preg_match("/(B\d+)/i", $p['subject'], $match);
   $p['postcode'] = strtoupper($match[1]);
   $p['headline'] = stripType($p['headline']);
-  $p['headline'] = preg_replace("/([- ,\.]*\(?B\d+\)?[!]*)/i", "", $p['headline']);
+  $p['headline'] = preg_replace("/([- ,\.]*\(?$postcode_pattern\)?[!]*)/i", "", $p['headline']);
   $types = array("unknown"=>0, "offered"=>1, "taken"=>2, "wanted"=>3);
   //echo typeOfPost($p['subject']);
   $p['type'] = typeOfPost($p['subject']);
@@ -153,11 +153,11 @@ function fireAlerts($postID) {
     }
     $body .= "\r\n----\r\n";
     $body .= $post['message'];
-    $headers = 'From: si@shellsi.com' . "\r\n" .
-      'Reply-To: si@shellsi.com' . "\r\n" .
+    $headers = "From: $admin_email" . "\r\n" .
+      "Reply-To: $admin_email" . "\r\n" .
       'X-Mailer: PHP/' . phpversion();
     // include post message
-    mail("sixball@gmail.com", "Freecycle alert: $post[subject]", $body, $headers);
+    mail($admin_email, "Freecycle alert: $post[subject]", $body, $headers); // TODO: change to user mail
   }
 }
 
@@ -259,11 +259,12 @@ function typeOfPost($subject) {
   if(stripos($subject, "offer") === 0 || 
     stripos($subject, "reoffer") === 0 || 
     stripos($subject, "re:offer") === 0 || 
+    stripos($subject, "re:offered") === 0 || 
     stripos($subject, "re: offer") === 0 || 
     stripos($subject, "re offer") === 0 || 
     stripos($subject, "re-offer") === 0 || 
     stripos($subject, "re-offered") === 0) 
-  return "offered";
+  return "offered"; // lot of creative variations!
     
   else if(stripos($subject, "wanted") === 0) return "wanted";
     
