@@ -5,6 +5,7 @@
 * 1. You'll need a database set up with a user.
 * 2. Set the title for your installation and name of the list.
 * 3. Set your timezone if not in UK.
+* 4. Fill in recognised areas (optional)
 ************************************************/
 
 // set config
@@ -15,6 +16,11 @@ $database = '';
 $wwwroot = ""; 
 $site_title = "site title goes here";
 $list_name = "list name here";
+$admin_email = "your email";
+
+// Replace examples below for recognised regions within mailing list. 
+$areas = array("edgbaston", "northfield", "california"); // NOTE: needs all lowercase!
+$postcode_pattern = "B\d+";// regular expression, e.g. matches B17
 
 // get db going
 require_once('DB.php');
