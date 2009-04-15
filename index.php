@@ -33,7 +33,7 @@ if(!empty($query)) {
 <div class='side'>
 <div class="sidebox">
 <h1>Search the lists</h1>
- <form method="get" action="index.php">
+<form method="get" action="index.php">
     <input type="text" name="q" value="<?= stripslashes($_GET['q']);?>">
       
       <br /><small>e.g. piano b17</small>
@@ -81,15 +81,15 @@ if(!empty($query)) {
     <form method="get" action="">
     <input type="hidden" name="view" value="test">
     Look for <input type="text" name="q" value="<?= stripslashes($_GET['q']);?>">
-     in <select name="area" XonChange="chat.location = 'chat.php?filtername='+this.options[this.selectedIndex].value;">
+    in <select name="area" XonChange="chat.location = 'chat.php?filtername='+this.options[this.selectedIndex].value;">
 <option value="all">All</option>
 <?php 
     $areas = $db->getAll("select area, count(*) as freq from posts group by area order by area");
     foreach($areas as $a) 
       if($a['area']!='') {
-        echo "<option value='$a[area]'";
-        if($a['area'] == $_GET['area']) echo " selected='selected'";
-        echo ">$a[area]</option>";
+	echo "<option value='$a[area]'";
+	if($a['area'] == $_GET['area']) echo " selected='selected'";
+	echo ">$a[area]</option>";
       }
 ?>
 </select>
@@ -133,7 +133,7 @@ if(!empty($query)) {
 	  }
 	  $filter .= ')';
 	}
-   // if($_GET['area'] != 'all') $filter = " AND area='$_GET[area]'";
+  // if($_GET['area'] != 'all') $filter = " AND area='$_GET[area]'";
   /*
     if(isset($_GET['q'])) {
       $q = stripslashes($_GET['q']);
@@ -142,7 +142,7 @@ if(!empty($query)) {
     }
     */
     // offered column
-     echo "<input id='hideTaken' type='checkbox' onClick='if(this.checked) $(\".taken\").hide(\"slow\"); else $(\".taken\").show(\"slow\")'> <small>hide (apparently) taken items</small>";
+    echo "<input id='hideTaken' type='checkbox' onClick='if(this.checked) $(\".taken\").hide(\"slow\"); else $(\".taken\").show(\"slow\")'> <small>hide (apparently) taken items</small>";
     $posts = getPosts("type='offered'".$filter);
     echo "<div class='column'><h2>Offered:</h2>";
     foreach($posts as $p) newPrintItem($p, NULL);
@@ -173,67 +173,58 @@ if(!empty($query)) {
     <?php
 
     if(!empty($query)) { // result of search
-	   $terms = explode(' ', $query);
+	  $terms = explode(' ', $query);
 /*
-    	 echo "Items with ";
-    	 $firstterm = true;
-    	 foreach($terms as $t) {
-    		  if(!$firstterm) {
-		    echo ' and ';
-		    $filter .= " and ";
-		  }
-    		echo "<b>".stripslashes(stripslashes($t))."</b>";
-		$filter .= "headline LIKE '%$t%'";
-    		$firstterm = false;
-    	}
-    	echo " in the title";
-	$types = array('offered', 'wanted');
-	foreach($types as $type) {
-	  echo "<h2>$type:</h2>";
-	  $posts = getPosts($filter." and type='$type'", 10);
-	  if($posts) {
-	    foreach($posts as $item) newPrintItem($item); // offered
-	  }
-	  else echo "<p><i>no items found!</i></p>";
-	}
-*/
- /*
 	Search works on the principle of: 
 	  matching all the terms in any of the areas
 	  where area is a postcode or member of $areas array
-	  so: headline like piano and headline like upright and (headline like sharborne or area=b17) 
+	  so: headline like piano and headline like upright and (headline like harborne or area=b17) 
 	  later: headline like piano and headline like upright and (area like harborne or area like b17)
-	test: piano northfield b31
-	TODO: write explanatory text as above
 */
 	$filter = "";
+	$text = ""; // explains search results
 	$firstterm = true;
 	foreach($terms as $t) {
 	    if(in_array(strtolower($t), $areas) or preg_match("/".$postcode_pattern."/i", $t)) {
 	      $searchareas[] = $t;
 	    }
 	    else {
-		if(!$firstterm) $filter .= " AND ";
+		if(!$firstterm) {
+		  $filter .= " AND ";
+		  $text .= " and ";
+		}
 		$filter .= "headline LIKE '%$t%'";
+		$text .= "<b>".stripslashes(stripslashes($t))."</b>";
 		$firstterm = false;
 	    }
 	} 
 
+	if($text == "") $text = "Items";
+	else $text = "Items with $text in the title";
+
 	// restrict to include any searchareas
 	if(count($searchareas) > 0) { // some areas specified
-	  if(!$firstterm) $filter .= " AND "; // appending to ordinary search terms
+	  $text .= " from ";
+	  if(!$firstterm) {
+	    $filter .= " AND "; // appending to ordinary search terms
+	  }	
 	  $filter .= '(';
 	  $firstterm = true; // within this clause
 	  foreach($searchareas as $searcharea) {
-		{
-		  if(!$firstterm) $filter .= " OR "; // matching ANY area
-		  if(in_array(strtolower($searcharea), $areas)) $filter .= "headline LIKE '%$searcharea%'"; 
-		  else $filter .= "area LIKE '%$searcharea%'"; // LIKE should be case-insensitive
-		  $firstterm = false;
+		if(!$firstterm) {
+		  $filter .= " OR "; // matching ANY area
+		    $text .= " or "; 
 		}
-	  }
+		if(in_array(strtolower($searcharea), $areas)) $filter .= "headline LIKE '%$searcharea%'"; 
+		else $filter .= "area LIKE '%$searcharea%'"; // LIKE should be case-insensitive
+		$text .= "<b>".$searcharea."</b>"; 
+		$firstterm = false;
+	      }
 	  $filter .= ')';
 	}
+  
+	echo $text;
+
 	$types = array('offered', 'wanted');
 	foreach($types as $type) {
 	  echo "<h2>$type:</h2>";
@@ -250,11 +241,9 @@ if(!empty($query)) {
       echo "<div id='showtaken'><input id='showTaken' type='checkbox' onClick='if(this.checked) $(\".taken\").show(\"normal\"); else $(\".taken\").hide(\"normal\")'> <small>show taken items</small></div>";
       $posts = getPosts($filter);
       if($posts) {
-        foreach($posts as $item) newPrintItem($item); // offered
+	foreach($posts as $item) newPrintItem($item); // offered
       }
     }
-    
-    //echo "</div>";
     echo "<div class='column'>";
   }
 ?>
