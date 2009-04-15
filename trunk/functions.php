@@ -6,7 +6,7 @@ if (!function_exists("stripos")) {
   }
 }
 
-function printItem($item, $followup = NULL) {
+function OLDprintItem($item, $followup = NULL) {
   //echo "<div onMouseOver='this.style.backgroundColor=\"#e1e1e1\"' onMouseOut='this.style.backgroundColor=\"#f1f1f1\"' onClick='$(this.lastChild).slideToggle()' ";
   echo "<div ";
   if($followup) echo "class='item taken'";
@@ -34,7 +34,7 @@ function printItem($item, $followup = NULL) {
   echo "</div></div>";
 }
 
-function newPrintItem($item, $showType = false) {
+function printItem($item, $showType = false) {
   //echo "<div onMouseOver='this.style.backgroundColor=\"#e1e1e1\"' onMouseOut='this.style.backgroundColor=\"#f1f1f1\"' onClick='$(this.lastChild).slideToggle()' ";
   global $db;
   if($item['link'] > 0 && $item['type'] == 'offered') $followup = $db->getRow("select * from posts where id=$item[link]");
@@ -46,7 +46,7 @@ function newPrintItem($item, $showType = false) {
   $poster = protectEmail($item['poster']);
   if($item['link'] == 0 && $item['type'] == 'taken') echo '*';
   echo " <div class='time'>".relative_time($item['time'])."</div>";
-  echo " <div class='postcode'><a href='?view=test&area=$item[area]'>$item[area]</a></div>";
+  echo " <div class='postcode'><a href='?q=$item[area]'>$item[area]</a></div>";
   
   // zoom control
   echo "<img src='zoom.png' onClick='$(parentNode.lastChild).slideToggle()'> ";

@@ -98,7 +98,7 @@ $query = mysql_real_escape_string($_GET['q']); // sanitised query
 	  echo "<h2>$type:</h2>";
 	  $posts = getPosts($filter." and type='$type'", 10);
 	  if($posts) {
-	    foreach($posts as $item) newPrintItem($item); // offered
+	    foreach($posts as $item) printItem($item); // offered
 	  }
 	  else echo "<p><i>no items found!</i></p>";
 	}
@@ -109,7 +109,7 @@ $query = mysql_real_escape_string($_GET['q']); // sanitised query
       echo "<div id='showtaken'><input id='showTaken' type='checkbox' onClick='if(this.checked) $(\".taken\").show(\"normal\"); else $(\".taken\").hide(\"normal\")'> <small>show taken items</small></div>";
       $posts = getPosts($filter);
       if($posts) {
-	foreach($posts as $item) newPrintItem($item); // offered
+	foreach($posts as $item) printItem($item); // offered
       }
     }
     echo "<div class='column'>";
