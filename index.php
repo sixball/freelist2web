@@ -20,7 +20,7 @@ $query = mysql_real_escape_string($_GET['q']); // sanitised query
 <div class="sidebox">
 <h1>Search the lists</h1>
 <form method="get" action="index.php">
-    <input type="text" name="q" value="<?= stripslashes($_GET['q']);?>">
+    <input type="text" name="q" value="<?= stripslashes($query);?>">
       
       <br /><small>e.g. piano b17</small>
       <input type="submit" value="search">
