@@ -7,19 +7,31 @@ $email = $db->getOne("select email from posters where id=$id");
 ?>
 <html>
 <head>
-<title>Live Brum Freecycling</title>
+
+<title><?= $site_title ?></title>
 <script type="text/javascript" src="jquery.js"></script>
-<link rel="stylesheet" type="text/css" href="freecycle.css">
+<link rel="stylesheet" type="text/css" href="freelist2web.css">
 </head>
 <body>
-<div class='column'>
+<div id="main">
+<div id="cc">
+<div id="top"><?= $site_title ?></div>
+
+<div class='itemlist'>
 <h1>All posts from <?php echo protectEmail($email); ?></h1>
 <?php
-  $posts = $db->getAll("select *, unix_timestamp(datetime) as time from posts where poster_id=$id");
-  foreach($posts as $post) {
-    //var_dump($post);
-    newPrintItem($post, false, true);
+
+  $types = array('offered', 'wanted');
+  foreach($types as $type) {
+  echo "<h2>$type:</h2>";
+  $posts = getPosts("poster_id=$id and type='$type'");
+  if($posts) {
+    foreach($posts as $item) printItem($item); // offered
   }
+  else echo "<p><i>none</i></p>";
+}
 ?>
-</div>
+</div><!-- itemlist -->
+</div><!-- cc -->
+</div><!-- main -->
 </body>

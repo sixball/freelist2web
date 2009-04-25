@@ -16,7 +16,6 @@ $query = mysql_real_escape_string($_GET['q']); // sanitised query
 <div id="main">
 <div id="cc">
 <div id="top"><?= $site_title ?></div>
-
 <div class='side'>
 <div class="sidebox">
 <h1>Search the lists</h1>
