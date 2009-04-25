@@ -36,7 +36,7 @@ function OLDprintItem($item, $followup = NULL) {
 
 function printItem($item, $showType = false) {
   //echo "<div onMouseOver='this.style.backgroundColor=\"#e1e1e1\"' onMouseOut='this.style.backgroundColor=\"#f1f1f1\"' onClick='$(this.lastChild).slideToggle()' ";
-  global $db;
+  global $db, $wwwroot;
   if($item['link'] > 0 && $item['type'] == 'offered') $followup = $db->getRow("select * from posts where id=$item[link]");
   echo "<div ";
   if($followup) echo "class='item taken'";
@@ -46,7 +46,7 @@ function printItem($item, $showType = false) {
   $poster = protectEmail($item['poster']);
   if($item['link'] == 0 && $item['type'] == 'taken') echo '*';
   echo " <div class='time'>".relative_time($item['time'])."</div>";
-  echo " <div class='postcode'><a href='?q=$item[area]'>$item[area]</a></div>";
+  echo " <div class='postcode'><a href='$wwwroot/?q=$item[area]'>$item[area]</a></div>";
   
   // zoom control
   echo "<img src='zoom.png' onClick='$(parentNode.lastChild).slideToggle()'> ";
@@ -60,7 +60,7 @@ function printItem($item, $showType = false) {
   echo "<div class='detail'>";
   
   if($followup) echo "$followup[headline] <small>[".relative_time($item['time'])."]</small><br />".nl2br($followup['detail']."<hr/>");
-  echo "<a href='showposter.php?id=$item[poster_id]'>$poster</a> ";//<i>$item[datetime]</i>".
+  echo "<a href='$wwwroot/poster.php?id=$item[poster_id]'>$poster</a> ";//<i>$item[datetime]</i>".
   echo "<br />".$item['detail'];//nl2br($item['detail']);
   echo "<br/><div class='original'><a target='postpopup' href='postpopup.php?id=$item[raw_id]' onclick=\"window.open('postpopup.php?id=$item[raw_id]', 'postpopup', 'width=600,height=400,scrollbars=yes,z-lock=yes')\">show original</a></div><br />";
   echo "</div></div>";
